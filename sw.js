@@ -1,7 +1,7 @@
 /* Service Worker · BM CRM. Solo guarda en caché los archivos de la app.
    NUNCA toca IndexedDB: actualizar la app no borra clientes ni eventos.
    Para publicar una actualización, cambia el número de VERSION. */
-const VERSION='bm-crm-v3';
+const VERSION='bm-crm-v12';
 const SHELL=['./','./index.html','./manifest.json'];
 self.addEventListener('install',e=>{e.waitUntil(caches.open(VERSION).then(c=>c.addAll(SHELL)).then(()=>self.skipWaiting()))});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(k=>Promise.all(k.filter(n=>n!==VERSION).map(n=>caches.delete(n)))).then(()=>self.clients.claim()))});
